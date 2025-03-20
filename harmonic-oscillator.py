@@ -15,7 +15,7 @@ TEMPS = 10
 
 #condition initiale (ici sous forme de loi normal):
 SIGMA = 1
-X0 = 2
+X0 = 3
 
 #constante de numérisation :
 Nx = 1000 #nombre de |x>
@@ -24,7 +24,7 @@ dx = L/Nx
 dt = TEMPS/Nt
 
 #pour l'aniamtion :
-animation_interval = 25  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
+animation_interval = 100  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
 save_animation = False #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
@@ -38,6 +38,7 @@ def animate_trajectory(positions_for_animation, L): #Animation des trajectoires 
     title = "Harmonic Oscillator"
     ax.set_title(title)
     plt.ylim([0,1])
+    plt.xlim([-L/2,L/2])
     def init():
         scat.set_offsets(np.empty((0, 2)))
         return (scat,)
@@ -72,7 +73,7 @@ def compute_U(H) :
 
 #potentiel
 def potential(x) :
-    return x * x * x
+    return x * x 
 
 ############################### main ###############################
 
@@ -102,7 +103,7 @@ for n in range(Nt-1) :
     if n % animation_interval  == 0 : #on sauvegarde les positions pour les annimées tout les "animation_interval" pas 
         positions = []
         for i in range(Nx) :
-            positions.append([i*dx, np.abs(psi[i])**2])
+            positions.append([i*dx - L/2, np.abs(psi[i])**2])
         positions_for_animation.append(positions)
 
         normalisation = np.sum(np.abs(psi)**2)
