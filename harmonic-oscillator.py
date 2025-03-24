@@ -15,8 +15,8 @@ L = 10
 TEMPS = 10
 
 #condition initiale (ici sous forme de loi normal):
-SIGMA = 1
-X0 = 3
+SIGMA = 1 #écart type de la fonction d'onde initial
+X0 = 3 #espérance ou centre de la fonction d'onde
 K0 = 2 # quantité de mouvement initial : p0 = hbar k0
 
 #constante de numérisation :
@@ -30,7 +30,7 @@ mesure_interval = 100
 
 #pour l'aniamtion :
 animation_interval = 20  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = True #si on sauvegarde l'animation sur la machine
+save_animation = False #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################
@@ -139,7 +139,6 @@ for n in range(Nt) :
         E_moy /= mesure_interval # fait une moyenne
         energy_evolution.append(E_moy)
         E_moy = 0
-        print(n,"/",Nt)
 
         # temps ou on a fait la mesure
         mesure_time.append(n*dt)
