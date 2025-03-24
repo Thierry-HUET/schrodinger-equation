@@ -15,9 +15,12 @@ L = 10
 TEMPS = 100
 
 #condition initiale (ici sous forme de loi normal):
-SIGMA = 1 #écart type de la fonction d'onde initial
-X0 = 1.5 #espérance ou centre de la fonction d'onde
-K0 = 1 # quantité de mouvement initial : p0 = hbar k0
+SIGMAx = 1 #écart type de la fonction d'onde initial
+X0 = 1.5   #espérance ou centre de la fonction d'onde
+Kx0 = 1    # quantité de mouvement initial : p0 = hbar k0
+SIGMAy = 1 # en y
+Y0 = 1.5   # "
+Ky0 = 1    # "
 
 #potentiel periodique
 TAILLE_V = 1 #taille dune barriere de potentiel
@@ -81,7 +84,7 @@ def animate_trajectory(probability_for_animation,energy_evolution, Vx, L): #Anim
         interval=50 #50ms -> 20fps
     )
     if save_animation :
-        ani.save("tunneling-effect.mp4", writer="ffmpeg", fps=20) #pour sauvegarder l'animation en .mp4 avec ffmpeg
+        ani.save("tunneling-effect-2D.mp4", writer="ffmpeg", fps=20) #pour sauvegarder l'animation en .mp4 avec ffmpeg
         plt.close(fig)
     else :
         plt.show()
@@ -97,13 +100,13 @@ def compute_U(H) : #opérateur evolution
     return num, den
 
 def potential(x) : # calcul le potentiel
-    v = []
+    """v = []
     for i in x :
         if (i%PERIODE_V < TAILLE_V) and (i%PERIODE_V > 0) :
             v.append(V0)
         else :
-            v.append(0)
-    return v
+            v.append(0)"""
+    return 
 
 ############################### main ###############################
 
@@ -115,7 +118,7 @@ probability_for_animation = []
 x = np.arange(-L/2, L/2, dx)
 
 if True : #paquet d'onde
-    psi0 = np.exp(-0.5 * (x - X0)**2 / SIGMA**2) * np.exp(1j * K0 * x)
+    psi0 = [np.exp(-0.5 * (x - X0)**2 / SIGMAx**2) * np.exp(1j * Kx0 * x), np.exp(-0.5 * (y - Y0)**2 / SIGMAy**2) * np.exp(1j * Ky0 * y)]
     psi0 /= np.linalg.norm(psi0)
 else : #un etat propre donc un |x> avec x = X0
     psi0 = np.zeros(Nx)
