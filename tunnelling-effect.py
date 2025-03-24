@@ -12,12 +12,12 @@ M = 1
 
 #constante du problème :
 L = 10
-TEMPS = 10
+TEMPS = 100
 
 #condition initiale (ici sous forme de loi normal):
 SIGMA = 1
 X0 = 1.5
-K0 = 2 # quantité de mouvement initial : p0 = hbar k0
+K0 = 1 # quantité de mouvement initial : p0 = hbar k0
 
 #potentiel periodique
 TAILLE_V = 1 #taille dune barriere de potentiel
@@ -25,8 +25,8 @@ PERIODE_V = 2 #tout les combiens de distance on a une barriere
 V0 = 10 #La hauteur du potentiel
 
 #constante de numérisation :
-Nx = 100 #nombre de |x>
-Nt = 2000 #nombre de pas de temps
+Nx = 200 #nombre de |x>
+Nt = 20000 #nombre de pas de temps
 dx = L/Nx
 dt = TEMPS/Nt
 
@@ -35,7 +35,7 @@ mesure_interval = 100
 
 #pour l'aniamtion :
 animation_interval = 20  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = False #si on sauvegarde l'animation sur la machine
+save_animation = True #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################
@@ -68,7 +68,7 @@ def animate_trajectory(probability_for_animation,energy_evolution, Vx, L): #Anim
     def update(frame_index):
         coords = probability_for_animation[frame_index]
         scat.set_offsets(coords)
-        ax1.set_title(f"Frame {frame_index}/{len(probability_for_animation)-1}")
+        ax1.set_title(f"{title} Frame {frame_index}/{len(probability_for_animation)-1}")
         return (scat,)
     
     #print("Shape for animation:", probability_for_animation.shape)
@@ -159,7 +159,7 @@ for n in range(Nt) :
         for i in range(Nx) :
             positions.append([i*dx - L/2, np.abs(psi[i])**2])
         probability_for_animation.append(positions)
-        #print(f"image {n/animation_interval}/{Nt/animation_interval}")
+        print(f"image {n/animation_interval}/{Nt/animation_interval}")
     
     normalisation = np.sum(np.abs(psi)**2)
     if np.abs(1 - normalisation) > 0.001 :

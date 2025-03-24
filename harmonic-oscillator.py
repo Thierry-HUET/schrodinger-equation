@@ -16,11 +16,11 @@ TEMPS = 10
 
 #condition initiale (ici sous forme de loi normal):
 SIGMA = 1
-X0 = 1.5
+X0 = 3
 K0 = 2 # quantité de mouvement initial : p0 = hbar k0
 
 #constante de numérisation :
-Nx = 100 #nombre de |x>
+Nx = 200 #nombre de |x>
 Nt = 2000 #nombre de pas de temps
 dx = L/Nx
 dt = TEMPS/Nt
@@ -30,7 +30,7 @@ mesure_interval = 100
 
 #pour l'aniamtion :
 animation_interval = 20  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = False #si on sauvegarde l'animation sur la machine
+save_animation = True #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################
@@ -53,7 +53,7 @@ def animate_trajectory(probability_for_animation,energy_evolution, Vx, L): #Anim
     ax1.set_ylabel("<H>", color = 'red')
     ax2.set_ylabel('|ψ|²', color='blue')
     
-    title = "Harmonic Oscilator"
+    title = "Harmonic Oscillator"
     ax1.set_title(title)
 
     def init():
@@ -63,7 +63,7 @@ def animate_trajectory(probability_for_animation,energy_evolution, Vx, L): #Anim
     def update(frame_index):
         coords = probability_for_animation[frame_index]
         scat.set_offsets(coords)
-        ax1.set_title(f"Frame {frame_index}/{len(probability_for_animation)-1}")
+        ax1.set_title(f"{title} Frame {frame_index}/{len(probability_for_animation)-1}")
         return (scat,)
     
     #print("Shape for animation:", probability_for_animation.shape)
@@ -76,7 +76,7 @@ def animate_trajectory(probability_for_animation,energy_evolution, Vx, L): #Anim
         interval=50 #50ms -> 20fps
     )
     if save_animation :
-        ani.save("harmonic-oscilator.mp4", writer="ffmpeg", fps=20) #pour sauvegarder l'animation en .mp4 avec ffmpeg
+        ani.save("harmonic-oscillator.mp4", writer="ffmpeg", fps=20) #pour sauvegarder l'animation en .mp4 avec ffmpeg
         plt.close(fig)
     else :
         plt.show()
@@ -139,6 +139,7 @@ for n in range(Nt) :
         E_moy /= mesure_interval # fait une moyenne
         energy_evolution.append(E_moy)
         E_moy = 0
+        print(n,"/",Nt)
 
         # temps ou on a fait la mesure
         mesure_time.append(n*dt)
