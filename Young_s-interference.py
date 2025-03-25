@@ -29,8 +29,10 @@ V0 = 10 #La hauteur du potentiel
 
 #constante de numérisation :
 Nx = 200 #nombre de |x>
+Ny = 200
 Nt = 20000 #nombre de pas de temps
 dx = L/Nx
+dy = L/Ny
 dt = TEMPS/Nt
 
 #pour les mesures :
@@ -99,50 +101,46 @@ def compute_U(H) : #opérateur evolution
     den = I + factor
     return num, den
 
-def potential(x) : # calcul le potentiel
-    """v = []
-    for i in x :
-        if (i%PERIODE_V < TAILLE_V) and (i%PERIODE_V > 0) :
-            v.append(V0)
-        else :
-            v.append(0)"""
-    return 
+def potential(x, y) : # calcul le potentiel
+    return (x**2 + y**2)
 
 ############################### main ###############################
 
 start_time = time.perf_counter()
 
-#initialisation
+# initialisation
 probability_for_animation = []
 
-x = np.arange(-L/2, L/2, dx)
+x, y = np.meshgrid(np.linspace(-L/2, L/2, Nx), np.linspace(-L/2, L/2, Ny)) # on fait une grille 2D
 
-if True : #paquet d'onde
+if True : # paquet d'onde
     psi0 = [np.exp(-0.5 * (x - X0)**2 / SIGMAx**2) * np.exp(1j * Kx0 * x), np.exp(-0.5 * (y - Y0)**2 / SIGMAy**2) * np.exp(1j * Ky0 * y)]
     psi0 /= np.linalg.norm(psi0)
-else : #un etat propre donc un |x> avec x = X0
-    psi0 = np.zeros(Nx)
-    psi0[int((X0+(L/2))*(Nx/L))] = 1
+else : # un etat propre donc un |x> tensoriel |y> avec x = X0 et y = YO
+    psi0 = np.zeros(Nx,Ny)
+    psi0[int((X0+(L/2))*(Nx/L)), int((Y0+(L/2))*(Ny/L))] = 1
 #Compute Opérateur évolution
-Vx = potential(x) #V(x)
-V = np.diag(Vx) #matrice diagonale du potentiel dans la base des |x>
+Vxy = potential(x, y) # V(x, y)
+V = np.diag(Vxy.flatten()) # matrice diagonale du potentiel dans la base des |x> tensoriel |y>
 
-Laplacien = (np.eye(Nx,k=1) - 2*np.eye(Nx) + np.eye(Nx,k = -1))/(dx*dx) 
+LaplacienX = (np.eye(Nx, k=1) - 2*np.eye(Nx) + np.eye(Nx, k=-1)) / dx**2
+LaplacienY = (np.eye(Ny, k=1) - 2*np.eye(Ny) + np.eye(Ny, k=-1)) / dy**2
+Laplacien = np.kron(LaplacienX, np.eye(Ny)) + np.kron(np.eye(Nx), LaplacienY) # np.kron = produit tensoriel
 
-H = - HBAR*HBAR * Laplacien / (2*M) + V # l'Hamiltonien dans la base des |x>
+H = - HBAR*HBAR * Laplacien / (2*M) + V # l'Hamiltonien dans la base des |x> tensoriel |y>
 
 U_numerateur, U_denominateur = compute_U(H) # U l'opérateur évolution = U_numerateur / U_denominateur 
 
-#init des mesures
+# init des mesures
 energy_evolution = []
 mesure_time = []
 E_moy = compute_energy(psi0, H)
 print("energie initiale = ", E_moy)
 
-#compute
+# compute
 psi = psi0
 for n in range(Nt) :
-    #resoud la PDE
+    # resoud la PDE
     psi = solve(U_numerateur, U_denominateur @ psi) # U_d|psi_n+1> = U_n|psi_n>
     
     # mesure des moyennes d'énérgie
@@ -169,7 +167,9 @@ for n in range(Nt) :
         print(f"Resultat diverge l'état n'est plus normalisé : Somme des |psi|² = {normalisation}")
         break
 
-#temps que met le programme
+print("energie finale = ", energy_evolution[-1])
+
+# temps que met le programme
 end_time = time.perf_counter()
 execution_time = end_time - start_time
 print(f"Programme exécuté en : {convert(execution_time)}")
