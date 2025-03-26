@@ -11,18 +11,18 @@ HBAR = 1
 M = 1
 
 #constante du problème :
-Lx = 6
-Ly = 6
+Lx = 7
+Ly = 7
 TEMPS = 1
-SCREEN_POSITION = -Lx/3 # proche de x = -L/2
+SCREEN_POSITION = Lx/6 - Lx/2 # proche de x = -L/2
 
 #condition initiale (ici sous forme de loi normal):
-SIGMAx = 1 #écart type de la fonction d'onde initial
-X0 = 2   #espérance ou centre de la fonction d'onde
-Kx0 = 15   # quantité de mouvement initial : p0 = hbar k0
-SIGMAy = 1 # en y
-Y0 = 0   # "
-Ky0 = 0    # "
+SIGMA_X = 1 # écart type de la fonction d'onde initial
+X0 = 2.5    # espérance ou centre de la fonction d'onde
+Kx0 = 15    # quantité de mouvement initial : p0 = hbar k0
+SIGMA_Y = 1 # en y
+Y0 = 0      # "
+Ky0 = 0     # "
 
 #boundary condition
 DIRICHLET = False # psi au bord = 0 => potentiel infini en dehors de la boite
@@ -31,27 +31,28 @@ PERIODIQUE = False # la particule sort a droite => elle rentre a gauche, creer u
 ABSORPTION = True #la particule sort est absorbé
 
 # Paramètres des fentes de Young
+X_SLIT_POSITION = 0.75 # ou se trouve les fentes en x
 SPLIT_CENTER1 = 0.5  # Position en y de la première fente
 SPLIT_CENTER2 = -0.5  # Position en y de la deuxième fente
 SLIT_WIDTH = 0.5  # Largeur des fentes
 BARRIER_WIDTH = 0.3  # Épaisseur de la barrière
-V0 = 20  # Hauteur de la barrière
+V0 = 30  # Hauteur de la barrière
 
 #constante de numérisation : #Nx = Ny = 50 et Nt = 900 donne 7min de calcul #Nx = Ny = 80 et Nt = 900 donne 1h de calcul
-Nx = 40 #nombre de |x>
-Ny = 40 
+Nx = 50 #nombre de |x>
+Ny = 50 
 Nt = 900 #nombre de pas de temps
 dx = Lx/Nx
 dy = Ly/Ny
 dt = TEMPS/Nt
-index_x_ecran = int((SCREEN_POSITION + (Lx/2))*(Nx/Lx))  
+screen_index_x = int((SCREEN_POSITION + (Lx/2))*(Nx/Lx)) # Indice de l'écran dans la grille 
 
 #pour les mesures :
-mesure_interval = 100
+mesure_interval = 5
 
 #pour l'aniamtion :
-animation_interval = 1  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = True #si on sauvegarde l'animation sur la machine
+animation_interval = 5  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
+save_animation = False #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################
@@ -67,7 +68,7 @@ def animate_wavefunction_2D(probability_for_animation, Vxy):
 
     # Création de l'image pour le potentiel et l'ecran en arrière-plan 
     screen_matrix = np.zeros((Ny, Nx)) 
-    screen_matrix[:, index_x_ecran] = V0  # On met la valeur V0 à la colonne correspondant à l'écran pour quelque chose d'homogene
+    screen_matrix[:, screen_index_x] = V0  # On met la valeur V0 à la colonne correspondant à l'écran pour quelque chose d'homogene
     ax.imshow(Vxy + screen_matrix, cmap="plasma", extent=extent, origin="lower", alpha=0.5)
 
     # Création de l'image pour l'animation
@@ -105,7 +106,7 @@ def potential(x, y) : # calcul le potentiel
     V = np.zeros_like(x)
 
     # Définition de la barrière centrale (avec fentes)
-    mask_barrier = (np.abs(x) < BARRIER_WIDTH / 2)  # Zone de la barrière en x
+    mask_barrier = (np.abs(x - X_SLIT_POSITION) < BARRIER_WIDTH / 2)  # Zone de la barrière en x
     mask_slit1 = np.abs(y - SPLIT_CENTER1) < SLIT_WIDTH / 2  # 1ère fente
     mask_slit2 = np.abs(y - SPLIT_CENTER2) < SLIT_WIDTH / 2  # 2ème fente
 
@@ -116,7 +117,7 @@ def potential(x, y) : # calcul le potentiel
 
     return V
 
-def absorbing_potential(x, y, absorption_strength=10, border_width = 0.2):
+def absorbing_potential(x, y, absorption_strength=15, border_width = 0.75):
     V_abs = np.zeros_like(x)
 
     # Distance aux bords (normalisée entre 0 et 1 dans la zone absorbante)
@@ -142,8 +143,8 @@ profiles_on_screen = []
 
 X, Y = np.meshgrid(np.linspace(-Lx/2, Lx/2, Nx), np.linspace(-Ly/2, Ly/2, Ny)) # on fait une grille 2D
 
-# paquet d'onde
-psi0 = np.exp(-0.5 * ((X - X0)**2 / SIGMAx**2 + (Y - Y0)**2 / SIGMAy**2)) * np.exp(1j * (Kx0 * X + Ky0 * Y))
+# Initialisation du paquet d'onde
+psi0 = np.exp(-0.5 * ((X - X0)**2 / SIGMA_X**2 + (Y - Y0)**2 / SIGMA_Y**2)) * np.exp(1j * (Kx0 * X + Ky0 * Y))
 psi0 /= np.linalg.norm(psi0)
 
 #Compute Opérateur évolution
@@ -169,7 +170,7 @@ mesure_time = []
 """E_moy = compute_energy(psi0, H)
 print("energie initiale = ", E_moy)"""
 
-# compute
+# Propagation temporelle
 psi = psi0.flatten()
 for n in range(Nt) :
     # resoud la PDE
@@ -177,7 +178,7 @@ for n in range(Nt) :
     psi_reshaped = psi.reshape(Nx, Ny)
 
     # Extraire la fonction d'onde sur l'écran
-    psi_at_screen = psi_reshaped[:, index_x_ecran]  # On prend la colonne pour x = position de lecran
+    psi_at_screen = psi_reshaped[:, screen_index_x]  # On prend la colonne pour x = position de lecran
     profiles_on_screen.append(np.abs(psi_at_screen)**2) # Ajouter le profil sur l'écran à la liste
 
     #condition au bord :
@@ -213,7 +214,7 @@ for n in range(Nt) :
         print(f"image {n/animation_interval}/{Nt/animation_interval}")
 
 #print("energie finale = ", energy_evolution[-1])
-print("compute finis")
+print("Simulation terminée")
 
 # plot le potentiel en 3D
 fig = plt.figure(figsize=(8,6))
@@ -249,4 +250,14 @@ plt.plot(np.linspace(-Ly/2,Ly/2, Nx), np.sum(final_profile, axis=0), color = 'r'
 plt.title(f"Bandes d'interférence sur l'écran en x = {SCREEN_POSITION}")
 plt.xlabel("Position en y") 
 plt.ylabel("Somme des probabilités au cours du temps")
+plt.show()
+
+Nz = Ny
+dz = dy
+screen = [np.sum(final_profile, axis=0)] * Nz
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.imshow(screen, cmap="inferno", aspect="auto", extent=[-Ly/2, Ly/2, 0, Nz * dz])
+ax.set_xlabel("y")
+ax.set_ylabel("z")
+ax.set_title(f"Bandes d'interférence sur l'écran en x = {SCREEN_POSITION}")
 plt.show()
