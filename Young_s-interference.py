@@ -28,7 +28,7 @@ Ky0 = 0     # "
 DIRICHLET = False # psi au bord = 0 => potentiel infini en dehors de la boite
 NEUMANN = False # d psi/dt = 0 au bord => rebond au bord
 PERIODIQUE = False # la particule sort a droite => elle rentre a gauche, creer un espace infini
-ABSORPTION = False #la particule sort est absorbé
+ABSORPTION = True #la particule sort est absorbé
 
 # Paramètres des fentes de Young
 X_SLIT_POSITION = 0.75 # ou se trouve les fentes en x
@@ -39,8 +39,8 @@ BARRIER_WIDTH = 0.3  # Épaisseur de la barrière
 V0 = 30  # Hauteur de la barrière
 
 #constante de numérisation : #Nx = Ny = 50 et Nt = 900 donne 7min de calcul #Nx = Ny = 80 et Nt = 900 donne 1h de calcul
-Nx = 30 #nombre de |x> 65
-Ny = 30 
+Nx = 100 #nombre de |x>
+Ny = 100 
 Nt = 1000 #nombre de pas de temps
 dx = Lx/Nx
 dy = Ly/Ny
@@ -48,11 +48,11 @@ dt = TEMPS/Nt
 screen_index_x = ((SCREEN_POSITION + (Lx/2)) * (Nx/Lx)).astype(int) # Indice de l'écran dans la grille 
 
 #pour les mesures :
-mesure_interval = 5
+mesure_interval = 10
 
 #pour l'aniamtion :
 animation_interval = 5  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = True #si on sauvegarde l'animation sur la machine
+save_animation = False #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################
