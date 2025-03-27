@@ -1,7 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def diffraction_with_unique_particle(Ny, Nx, Ly, Lx, dt, wavelength, slit_distance, screen_distance, t_start=0):
+############################### parametre ###############################
+
+#numérique
+Ny, Nx = 200, 100  # Résolution en y et en temps
+Ly, Lx = 6, 6  # Taille de l'écran
+dt = 0.01  # Pas de temps
+
+# physique
+wavelength = 0.15  # Longueur d'onde simulée
+slit_distance = 2  # Distance entre les fentes
+screen_distance = 10 # Distance de la fente à l'écran
+
+############################### fonction ###############################
+
+def diffraction(wavelength, slit_distance, screen_distance, t_start=0):
     # Positions sur l'écran
     y = np.linspace(-Ly/2, Ly/2, Ny)
     
@@ -18,16 +32,10 @@ def diffraction_with_unique_particle(Ny, Nx, Ly, Lx, dt, wavelength, slit_distan
     
     return profile
 
-# Paramètres de la simulation
-Ny, Nx = 200, 100  # Résolution en y et en temps
-Ly, Lx = 6, 6  # Taille de l'écran
-dt = 0.01  # Pas de temps
-wavelength = 0.15  # Longueur d'onde simulée
-slit_distance = 2  # Distance entre les fentes
-screen_distance = 10 # Distance de la fente à l'écran
+############################### main ###############################
 
 # Génération du profil théorique avec particule unique
-profile_with_particle = diffraction_with_unique_particle(Ny, Nx, Ly, Lx, dt, wavelength, slit_distance, screen_distance)
+profile_with_particle = diffraction(wavelength, slit_distance, screen_distance)
 
 # Affichage
 fig, axes = plt.subplots(1, 3, figsize=(18, 5))
@@ -36,12 +44,12 @@ fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 im1 = axes[0].imshow(profile_with_particle, cmap="inferno", aspect="auto", extent=[-Ly/2, Ly/2, 0, Nx * dt])
 axes[0].set_xlabel("y")
 axes[0].set_ylabel("Temps")
-axes[0].set_title("Évolution des bandes d'interférence (Particule Unique)")
+axes[0].set_title("Évolution des bandes d'interférence")
 fig.colorbar(im1, ax=axes[0], label="|ψ|²")
 
 # 2. Tracé de la somme des probabilités sur l'écran
 axes[1].plot(np.linspace(-Ly/2, Ly/2, Ny), np.sum(profile_with_particle, axis=0), color='r')
-axes[1].set_title("Somme des probabilités (Particule Unique)")
+axes[1].set_title("Somme des probabilités")
 axes[1].set_xlabel("Position en y")
 axes[1].set_ylabel("Intensité cumulée")
 axes[1].grid(True)
