@@ -9,7 +9,7 @@ The project serves as an **introduction to Partial Differential Equations (PDEs)
 ## 📌 **Project Overview**  
 
 ### 1️⃣ **Introduction: Heat Equation (PDE basics)**  
-- Implements the **heat diffusion equation** to introduce numerical PDE solvers.  
+- Implements the **heat diffusion equation** to introduce numerical PDE solvers (Euler).  
 - Uses **finite difference methods** for time evolution.  
 - **Visualization:** [heat-diffusion.mp4](heat-diffusion.mp4)  
 - **Code:** [heat-diffusion.py](heat-diffusion.py)  
@@ -91,11 +91,11 @@ If you want to modify the simulation parameters (grid size, initial conditions, 
 
 ├── 📄 Rapport-Simulation_numérique_Fentes_de_Young_en_2D.pdf (Detailed report on the Young's double-slit experiment simulation)
 
-│ 🔥 heat-diffusion.py (2D Heat diffusion simulation)
+│ 🔥 heat-diffusion.py (1D Heat diffusion simulation)
 
-│ 🎵 harmonic-oscillator.py (Quantum harmonic oscillator)
+│ 🎵 harmonic-oscillator.py (1D Quantum harmonic oscillator)
 
-│ 🔬 tunnelling-effect.py (Quantum tunneling effect)
+│ 🔬 tunnelling-effect.py (1D Quantum tunneling effect)
 
 │ 🎭 Young_s-interference.py (Young's double-slit experiment simulation in 2D)
 
