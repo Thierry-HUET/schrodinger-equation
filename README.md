@@ -62,3 +62,63 @@ A full report on the **2D Young’s Double-Slit Experiment simulation** is avail
 This project requires Python **3.7+** and the following libraries:  
 ```bash
 pip install numpy matplotlib scipy
+```
+---
+
+## 🚀 Usage  
+To run a simulation, simply execute the corresponding script with Python:  
+
+```bash
+python Young_s-interference.py
+```
+or
+```bash
+python tunnelling-effect.py
+```
+or
+```bash
+python harmonic-oscillator.py
+```
+This will generate and display the associated animation.
+
+If you want to modify the simulation parameters (grid size, initial conditions, potential...), they are defined at the beginning of each Python script and can be adjusted as needed.
+
+---
+
+## 🛠 Project Structure
+
+📂 schrodinger-simulations/
+
+├── 📄 Rapport-Simulation_numérique_Fentes_de_Young_en_2D.pdf (Detailed report on the Young's double-slit experiment simulation)
+
+│ 🔥 heat-diffusion.py (2D Heat diffusion simulation)
+
+│ 🎵 harmonic-oscillator.py (Quantum harmonic oscillator)
+
+│ 🔬 tunnelling-effect.py (Quantum tunneling effect)
+
+│ 🎭 Young_s-interference.py (Young's double-slit experiment simulation in 2D)
+
+│ 📷 [Simulation results in png format]
+
+│ 📹 [Simulation results in MP4 format]
+
+│ 📊 Crank-Nicholson stability graphs
+
+└── 📜 README.md (This file)
+
+---
+
+## 🤝 Contributions & Contact
+
+Contributions are welcome! You can:
+
+- Fork the project and suggest improvements.
+
+- Submit a pull request if you add features or fix a bug.
+
+- Open an issue to ask a question or report a problem.
+
+💡 Contact: Feel free to reach out if you have any suggestions or questions about the simulations!
+
+## 🚀 Happy quantum explorations!
