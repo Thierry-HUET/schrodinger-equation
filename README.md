@@ -11,44 +11,44 @@ The project serves as an **introduction to Partial Differential Equations (PDEs)
 ### 1️⃣ **Introduction: Heat Equation (PDE basics)**  
 - Implements the **heat diffusion equation** to introduce numerical PDE solvers (Euler).  
 - Uses **finite difference methods** for time evolution.  
-- **Visualization:** [heat-diffusion.mp4](heat-diffusion.mp4)  
-- **Code:** [heat-diffusion.py](heat-diffusion.py)  
+- **Visualization:** [heat-diffusion.mp4](heat-diffusion/results/heat-diffusion.mp4)  
+- **Code:** [heat-diffusion.py](heat-diffusion/heat-diffusion.py)  
 
 ### 2️⃣ **Quantum Harmonic Oscillator**  
 - Solves the Schrödinger equation for a **harmonic potential** \( V(x) = \frac{1}{2} m \omega^2 x^2 \).  
 - Demonstrates **wavefunction evolution over time**.  
 - Uses **Crank-Nicolson for stability**.  
 - **Visualizations:**  
-  - 1D Oscillator: [harmonic-oscillator.mp4](harmonic-oscillator.mp4)  
-  - 2D Oscillator: [harmonic-oscillator-2D.mp4](harmonic-oscillator-2D.mp4)  
-- **Code:** [harmonic-oscillator.py](harmonic-oscillator.py)  
+  - 1D Oscillator: [harmonic-oscillator.mp4](harmonic-oscillator/results/harmonic-oscillator.mp4)  
+  - 2D Oscillator: [harmonic-oscillator-2D.mp4](harmonic-oscillator/results/harmonic-oscillator-2D.mp4)  
+- **Code:** [harmonic-oscillator.py](harmonic-oscillator/harmonic-oscillator.py)  
 
 ### 3️⃣ **Quantum Tunneling Effect**  
 - Simulates a **wave packet propagating through a potential barrier**.  
 - Demonstrates **quantum mechanical barrier penetration**.  
-- **Visualization:** [tunneling-effect.mp4](tunneling-effect.mp4)  
-- **Code:** [tunnelling-effect.py](tunnelling-effect.py)  
+- **Visualization:** [tunneling-effect.mp4](tunneling-effect/results/tunneling-effect.mp4)  
+- **Code:** [tunnelling-effect.py](tunneling-effect/tunnelling-effect.py)  
 
 ### 4️⃣ **Young’s Double-Slit Experiment (Quantum Interference)**  
 - Simulates **wave interference in a 2D potential**.  
 - Models the **probability density** behind two slits.  
 - Explores **quantum superposition and wave-particle duality**.  
 - **Results:**  
-  - Theoretical result: ![Young-theorical-result](Young-theorical-result.png)  
-  - Simulated screens: ![Young_ecran1](Young_ecran1.png) | ![Young_ecran2](Young_ecran2.png) | ![Young_ecran3](Young_ecran3.png)  
-- **Visualization:** [young_s-interference.mp4](young_s-interference.mp4)  
+  - Theoretical result: ![Young-theorical-result](Young_s-interference/results/screen/Young-theorical-result.png)  
+  - Simulated screens: ![Young_ecran1](Young_s-interference/results/screen/Young_ecran1.png) | ![Young_ecran2](Young_s-interference/results/screen/Young_ecran2.png) | ![Young_ecran3](Young_s-interference/results/screen/Young_ecran3.png)  
+- **Visualization:** [young_s-interference.mp4](Young_s-interference/results/young_s-interference.mp4)  
 - **Code:**  
-  - Theoretical prediction: [Young-theorical-result.py](Young-theorical-result.py)  
-  - Simulation: [Young_s-interference.py](Young_s-interference.py)  
-  - Potential visualization: ![potentiel_fentes-de-Young](potentiel_fentes-de-Young.png)  
+  - Theoretical prediction: [Young-theorical-result.py](Young_s-interference/Young-theorical-result.py)  
+  - Simulation: [Young_s-interference.py](Young_s-interference/Young_s-interference.py)  
+- Potential visualization: ![potentiel_fentes-de-Young](Young_s-interference/results/method/potentiel_fentes-de-Young.png)  
 
 ---
 
 ## 📊 **Numerical Stability & Energy Conservation**  
 The simulations rely on the **Crank-Nicolson method**, ensuring numerical stability. To verify this, we track **energy and norm conservation** in the absence of absorbing boundaries:  
 
-- **Energy Conservation:** ![stabilite-energie](stabilte-de-l_energie-Crank-Nicholson.png)  
-- **Norm Conservation:** ![stabilite-norme](stabilte-de-la-norme-Crank-Nicholson.png)  
+- **Energy Conservation:** ![stabilite-energie](Young_s-interference/results/method/stabilte-de-l_energie-Crank-Nicholson.png)  
+- **Norm Conservation:** ![stabilite-norme](Young_s-interference/results/method/stabilte-de-la-norme-Crank-Nicholson.png)  
 
 ---
 
@@ -69,15 +69,15 @@ pip install numpy matplotlib scipy
 To run a simulation, simply execute the corresponding script with Python:  
 
 ```bash
-python Young_s-interference.py
+python Young_s-interference/Young_s-interference.py
 ```
-or
+or  
 ```bash
-python tunnelling-effect.py
+python tunneling-effect/tunnelling-effect.py
 ```
-or
+or  
 ```bash
-python harmonic-oscillator.py
+python harmonic-oscillator/harmonic-oscillator.py
 ```
 This will generate and display the associated animation.
 
@@ -85,38 +85,54 @@ If you want to modify the simulation parameters (grid size, initial conditions, 
 
 ---
 
-## 🛠 Project Structure
+## 🛠 Project Structure  
 
+```
 📂 schrodinger-simulations/
-
+│
 ├── 📄 Rapport-Simulation_numérique_Fentes_de_Young_en_2D.pdf (Detailed report on the Young's double-slit experiment simulation)
-
-│ 🔥 heat-diffusion.py (1D Heat diffusion simulation)
-
-│ 🎵 harmonic-oscillator.py (1D Quantum harmonic oscillator)
-
-│ 🔬 tunnelling-effect.py (1D Quantum tunneling effect)
-
-│ 🎭 Young_s-interference.py (Young's double-slit experiment simulation in 2D)
-
-│ 📷 [Simulation results in png format]
-
-│ 📹 [Simulation results in MP4 format]
-
-│ 📊 Crank-Nicholson stability graphs
-
-└── 📜 README.md (This file)
+│
+├── 📂 heat-diffusion/
+│   ├── heat-diffusion.py
+│   ├── results/
+│       ├── heat-diffusion.mp4
+│
+├── 📂 harmonic-oscillator/
+│   ├── harmonic-oscillator.py
+│   ├── results/
+│       ├── harmonic-oscillator.mp4
+│       ├── harmonic-oscillator-2D.mp4
+│
+├── 📂 tunneling-effect/
+│   ├── tunnelling-effect.py
+│   ├── results/
+│       ├── tunneling-effect.mp4
+│
+├── 📂 Young_s-interference/
+│   ├── Young_s-interference.py
+│   ├── Young-theorical-result.py 
+│   ├── results/
+│       ├── young_s-interference.mp4
+│       ├── method/
+│       │   ├── potentiel_fentes-de-Young.png
+│       │   ├── stabilte-de-l_energie-Crank-Nicholson.png
+│       │   ├── stabilte-de-la-norme-Crank-Nicholson.png
+│       ├── screen/
+│           ├── Young-theorical-result.png
+│           ├── Young_ecran1.png
+│           ├── Young_ecran2.png
+│           ├── Young_ecran3.png
+│
+├── 📜 README.md (This file)
+```
 
 ---
 
-## 🤝 Contributions & Contact
-
+## 🤝 Contributions & Contact  
 Contributions are welcome! You can:
 
 - Fork the project and suggest improvements.
-
 - Submit a pull request if you add features or fix a bug.
-
 - Open an issue to ask a question or report a problem.
 
 💡 Contact: Feel free to reach out if you have any suggestions or questions about the simulations!
