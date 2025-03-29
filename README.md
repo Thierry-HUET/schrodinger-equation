@@ -94,36 +94,36 @@ If you want to modify the simulation parameters (grid size, initial conditions, 
 │
 ├── 📂 heat-diffusion/
 │   ├── heat-diffusion.py
-│   ├── results/
-│       ├── heat-diffusion.mp4
+│   └── results/
+│       └── heat-diffusion.mp4
 │
 ├── 📂 harmonic-oscillator/
 │   ├── harmonic-oscillator.py
-│   ├── results/
+│   └── results/
 │       ├── harmonic-oscillator.mp4
-│       ├── harmonic-oscillator-2D.mp4
+│       └── harmonic-oscillator-2D.mp4
 │
 ├── 📂 tunneling-effect/
 │   ├── tunnelling-effect.py
-│   ├── results/
-│       ├── tunneling-effect.mp4
+│   └── results/
+│       └── tunneling-effect.mp4
 │
 ├── 📂 Young_s-interference/
 │   ├── Young_s-interference.py
 │   ├── Young-theorical-result.py 
-│   ├── results/
+│   └── results/
 │       ├── young_s-interference.mp4
 │       ├── method/
 │       │   ├── potentiel_fentes-de-Young.png
 │       │   ├── stabilte-de-l_energie-Crank-Nicholson.png
-│       │   ├── stabilte-de-la-norme-Crank-Nicholson.png
-│       ├── screen/
+│       │   └── stabilte-de-la-norme-Crank-Nicholson.png
+│       └── screen/
 │           ├── Young-theorical-result.png
 │           ├── Young_ecran1.png
 │           ├── Young_ecran2.png
-│           ├── Young_ecran3.png
+│           └── Young_ecran3.png
 │
-├── 📜 README.md (This file)
+└── 📜 README.md (This file)
 ```
 
 ---
