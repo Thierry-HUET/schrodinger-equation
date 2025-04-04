@@ -11,14 +11,14 @@ HBAR = 1
 M = 1
 
 #constante du problème :
-Lx = 6
-Ly = 6
+Lx = 10
+Ly = 10
 TEMPS = 1
 SCREEN_POSITION = np.array([Lx/3 - Lx/2, Lx/4 - Lx/2, Lx/6 - Lx/2]) # proche de x = -L/2
 
 #condition initiale (ici sous forme de loi normal):
 SIGMA_X = 1 # écart type de la fonction d'onde initial
-X0 = 2.5    # espérance ou centre de la fonction d'onde
+X0 = Lx/4    # espérance ou centre de la fonction d'onde
 Kx0 = 15    # quantité de mouvement initial : p0 = hbar k0
 SIGMA_Y = 1 # en y
 Y0 = 0      # "
@@ -31,16 +31,16 @@ PERIODIQUE = False # la particule sort a droite => elle rentre a gauche, creer u
 ABSORPTION = True #la particule sort est absorbé
 
 # Paramètres des fentes de Young
-X_SLIT_POSITION = 0.75 # ou se trouve les fentes en x
+X_SLIT_POSITION = Lx/8 # ou se trouve les fentes en x
 SPLIT_CENTER1 = 0.4  # Position en y de la première fente
 SPLIT_CENTER2 = - SPLIT_CENTER1  # Position en y de la deuxième fente
 SLIT_WIDTH = 0.4  # Largeur des fentes
 BARRIER_WIDTH = 0.3  # Épaisseur de la barrière
-V0 = 30  # Hauteur de la barrière
+V0 = 150  # Hauteur de la barrière
 
 #constante de numérisation : #Nx = Ny = 50 et Nt = 900 donne 7min de calcul #Nx = Ny = 80 et Nt = 900 donne 1h de calcul
-Nx = 100 #nombre de |x>
-Ny = 100 
+Nx = 125 #nombre de |x>
+Ny = 125 
 Nt = 1000 #nombre de pas de temps
 dx = Lx/Nx
 dy = Ly/Ny
@@ -52,7 +52,7 @@ mesure_interval = 10
 
 #pour l'aniamtion :
 animation_interval = 5  #Intervalle pour l'animation (tout les combiens de step on sauvegarde les positions)
-save_animation = False #si on sauvegarde l'animation sur la machine
+save_animation = True #si on sauvegarde l'animation sur la machine
 save_frames = True  #si on fait une annimation
 
 ############################### fonctions ###############################

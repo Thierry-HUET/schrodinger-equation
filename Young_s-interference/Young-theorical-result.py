@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 
 #numérique
 Ny, Nx = 200, 100  # Résolution en y et en temps
-Ly, Lx = 6, 6  # Taille de l'écran
+Ly, Lx = 10, 10  # Taille de l'écran
 dt = 0.01  # Pas de temps
 
 # physique
-wavelength = 0.15  # Longueur d'onde simulée
-slit_distance = 2  # Distance entre les fentes
-screen_distance = 10 # Distance de la fente à l'écran
+wavelength = 0.5  # Longueur d'onde simulée
+slit_distance = 0.8  # Distance entre les fentes
+screen_distance = 3.5 # Distance de la fente à l'écran
 
 ############################### fonction ###############################
 
@@ -23,7 +23,7 @@ def diffraction(wavelength, slit_distance, screen_distance, t_start=0):
     I = -(np.cos(np.pi * slit_distance * y / (wavelength * screen_distance)))**2
     
     # Facteur d'atténuation exponentielle pour la décroissance de l'intensité
-    intensity_decay = np.exp(-y**2 / 2)  # Une décroissance gaussienne
+    intensity_decay = 0.002 * np.exp(-y**2 / 4)  # Une décroissance gaussienne
     I = I * intensity_decay  # Appliquer la décroissance
     
     # Profondeur de la probabilité (la particule commence à t_start, puis se propage)
