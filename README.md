@@ -15,7 +15,7 @@ The project serves as an **introduction to Partial Differential Equations (PDEs)
 - **Code:** [heat-diffusion.py](heat-diffusion/heat-diffusion.py)  
 
 ### 2️⃣ **Quantum Harmonic Oscillator**  
-- Solves the Schrödinger equation for a **harmonic potential** \( V(x) = \frac{1}{2} m \omega^2 x^2 \).  
+- Solves the Schrödinger equation for a **harmonic potential** $\( V(x) = \frac{1}{2} m \omega^2 x^2 \)$.  
 - Demonstrates **wavefunction evolution over time**.  
 - Uses **Crank-Nicolson for stability**.  
 - **Visualizations:**  
